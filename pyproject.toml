@@ -1,0 +1,13 @@
+[project]
+name = "geese"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "marvin",
+    "mcp[cli]>=1.2.1",
+]
+
+[tool.uv.sources]
+marvin = { git = "https://github.com/prefecthq/marvin.git" }
