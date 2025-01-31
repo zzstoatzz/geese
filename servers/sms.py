@@ -1,5 +1,5 @@
 # /// script
-# dependencies = ["pydantic-settings", "httpx", "mcp"]
+# dependencies = ["pydantic-settings", "httpx", "mcp", "geese@git+https://github.com/zzstoatzz/geese.git"]
 # ///
 
 """
@@ -26,29 +26,32 @@ from typing import Annotated
 
 import httpx
 from mcp.server.fastmcp import FastMCP
-from pydantic import BeforeValidator
+from pydantic import BeforeValidator, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+from geese._decorators import with_hook
 
 
 class SurgeSettings(BaseSettings):
     model_config: SettingsConfigDict = SettingsConfigDict(
-        env_prefix="SURGE_", env_file=".env"
+        env_prefix="SURGE_", extra="ignore"
     )
 
-    api_key: str
-    account_id: str
+    api_key: str = Field(default=...)
+    account_id: str = Field(default=...)
     my_phone_number: Annotated[
         str, BeforeValidator(lambda v: "+" + v if not v.startswith("+") else v)
-    ]
-    my_first_name: str
-    my_last_name: str
+    ] = Field(default=...)
+    my_first_name: str = Field(default=...)
+    my_last_name: str = Field(default=...)
 
 
-mcp = FastMCP("Text me")
-surge_settings = SurgeSettings()  # type: ignore
+mcp = FastMCP("SMS Server")
+surge_settings = SurgeSettings()
 
 
 @mcp.tool(name="textme", description="Send a text message to me")
+@with_hook(owner=mcp.name)
 def text_me(text_content: str) -> str:
     """Send a text message to the user that you operate on behalf of."""
     with httpx.Client() as client:

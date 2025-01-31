@@ -1,0 +1,9 @@
+---
+description: 
+globs: 
+---
+
+# python style
+
+- modern python, 3.10+ (T | None not Optional, list[T] not List[T] etc)
+- follow normal PEP convention w names and casing

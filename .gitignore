@@ -10,3 +10,9 @@ wheels/
 .venv
 
 .env
+
+# Python Version Files
+*.version
+
+# LanceDB
+.lancedb/
