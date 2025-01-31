@@ -19,7 +19,7 @@ from mcp.server.fastmcp import FastMCP
 from mcp.shared.exceptions import McpError
 from mcp.types import INTERNAL_ERROR, INVALID_PARAMS, ErrorData
 
-mcp = FastMCP("wiki")
+mcp = FastMCP("Wiki-Fetcher")
 
 
 @mcp.tool()

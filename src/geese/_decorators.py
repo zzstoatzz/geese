@@ -5,7 +5,7 @@ from typing import Any
 from prefect.events import emit_event
 
 
-def with_hook(
+def emit_event_on_call(
     owner: str | None = None,
     event_name: str = "tool-called",
     extra_resources: dict | None = None,

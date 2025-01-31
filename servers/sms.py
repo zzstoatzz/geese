@@ -29,7 +29,7 @@ from mcp.server.fastmcp import FastMCP
 from pydantic import BeforeValidator, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from geese._decorators import with_hook
+from geese._decorators import emit_event_on_call
 
 
 class SurgeSettings(BaseSettings):
@@ -46,12 +46,12 @@ class SurgeSettings(BaseSettings):
     my_last_name: str = Field(default=...)
 
 
-mcp = FastMCP("SMS Server")
+mcp = FastMCP("SMS-Server")
 surge_settings = SurgeSettings()
 
 
 @mcp.tool(name="textme", description="Send a text message to me")
-@with_hook(owner=mcp.name)
+@emit_event_on_call(owner=mcp.name, event_name="sms-sent")
 def text_me(text_content: str) -> str:
     """Send a text message to the user that you operate on behalf of."""
     with httpx.Client() as client:

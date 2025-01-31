@@ -51,7 +51,7 @@ class Document(LanceModel):
     metadata: str | None = None  # JSON string for Arrow compatibility
 
 
-mcp = FastMCP("Context Manager")
+mcp = FastMCP("Context-Manager")
 db = lancedb.connect(".lancedb")
 
 
